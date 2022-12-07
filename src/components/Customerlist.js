@@ -30,15 +30,15 @@ function Customerlist() {
 
     const addCustomer = (customer) => {
         fetch("https://customerrest.herokuapp.com/api/customers", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(customer),
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(customer),
         }).then((response) => {
-          if (response.ok) {
-            fetchCustomers();
-          }
+            if (response.ok) {
+                fetchCustomers();
+            }
         });
-      };
+    };
 
     const deleteCustomer = (link) => {
         console.log(link)
@@ -51,15 +51,15 @@ function Customerlist() {
     const updateCustomer = (updateCustomer, link) => {
         console.log(link)
         fetch(link, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updateCustomer),
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updateCustomer),
         }).then((response) => {
-          if (response.ok) {
-            fetchCustomers();
-          }
+            if (response.ok) {
+                fetchCustomers();
+            }
         });
-      };
+    };
 
 
     const [columnDefs, setColumnDefs] = useState([
@@ -92,7 +92,7 @@ function Customerlist() {
     ]);
     return (
         <>
-        <Addcustomer addCustomer={addCustomer} />
+            <Addcustomer addCustomer={addCustomer} />
             <div
                 style={{ height: 600, width: "100%" }}
                 className="ag-theme-material"
