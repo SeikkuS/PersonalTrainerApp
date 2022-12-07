@@ -16,7 +16,7 @@ export default function Addtraining({ addTraining }) {
         duration: '',
         customer: '',
     });
-    const [customer, setCustomer] = React.useState([])
+    
 
     const fetchCustomers = () => {
         fetch("https://customerrest.herokuapp.com/api/customers")
