@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Navigation from './Navigation'
 import Traininglist from './Traininglist'
 import Editcustomer from "./Editcustomer";
+import Addcustomer from "./Addcustomer";
 
 function Customerlist() {
     const [customers, setCustomers] = useState([]);
@@ -27,7 +28,20 @@ function Customerlist() {
             .then((data) => setCustomers(data.content));
     };
 
+    const addCustomer = (customer) => {
+        fetch("https://customerrest.herokuapp.com/api/customers", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(customer),
+        }).then((response) => {
+          if (response.ok) {
+            fetchCustomers();
+          }
+        });
+      };
+
     const deleteCustomer = (link) => {
+        console.log(link)
         fetch(link, { method: "DELETE" }).then((response) => {
             if (response.ok) {
                 fetchCustomers();
@@ -35,6 +49,7 @@ function Customerlist() {
         });
     };
     const updateCustomer = (updateCustomer, link) => {
+        console.log(link)
         fetch(link, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -58,7 +73,7 @@ function Customerlist() {
         {
             headerName: "",
             width: 100,
-            field: "_links.self.href",
+            field: "links.0.href",
             cellRenderer: (params) => (
 
                 <IconButton color="error" onClick={() => deleteCustomer(params.value)}>
@@ -69,7 +84,7 @@ function Customerlist() {
         {
             headerName: "",
             width: 100,
-            field: "_links.self.href",
+            field: "links.0.href",
             cellRenderer: (params) => (
                 <Editcustomer updateCustomer={updateCustomer} params={params} />
             ),
@@ -77,6 +92,7 @@ function Customerlist() {
     ]);
     return (
         <>
+        <Addcustomer addCustomer={addCustomer} />
             <div
                 style={{ height: 600, width: "100%" }}
                 className="ag-theme-material"
